@@ -34,10 +34,21 @@ async function readFileIpcExecutor(win, context, path) {
   };
 }
 
+class MyCustomObject {
+  custom() {
+    return "custom";
+  }
+  
+  test() {
+    return "test";
+  }
+}
+
 const mapping = {
   DESTROY_WINDOW: destroyWindowIpcExecutor,
   OPEN_FILE_DIALOG: openFileDialogIpcExecutor,
-  READ_FILE: readFileIpcExecutor
+  READ_FILE: readFileIpcExecutor,
+  MY_CUSTOM_OBJECT_PROXY: Ipc.delegate(new MyCustomObject())
 };
 
 const ipcController = new IpcController(mapping);
@@ -65,7 +76,9 @@ contextBridge.exposeInMainWorld("electron", {
 
   readFile: async (path) => {
     return await Ipc.call("READ_FILE", path);
-  }
+  },
+  
+  myCustomObject: Ipc.proxy("MY_CUSTOM_OBJECT_PROXY")
 });
 ```
 
