@@ -1,6 +1,6 @@
 {
   "name": "@aux4/ipc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "IPC Function Mapping for Electron",
   "main": "index.js",
   "scripts": {
